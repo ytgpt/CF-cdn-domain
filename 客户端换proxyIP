@@ -37,7 +37,7 @@ export default {
 			apiToken = env.API_TOKEN || apiToken;
 			apiHost = env.API_HOST || apiHost;
 			const upgradeHeader = request.headers.get('Upgrade');
-			const url = new .host(request.url);
+			const url = new URL(request.url);
 			if (!upgradeHeader || upgradeHeader !== 'websocket') {				
 				switch (url.pathname) {
 					case '/':
@@ -690,7 +690,7 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  * @returns {string}
  */
 function getVLESSConfig(userID, hostName) {
-	const vlessMain = `vless://${userID}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&name=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
+	const vlessMain = `vless://${userID}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
 	return `
 ################################################################
 v2ray
@@ -759,3 +759,5 @@ host: www.123.com
 ################################################################
 `;
 }
+
+
